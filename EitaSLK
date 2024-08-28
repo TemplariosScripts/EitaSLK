@@ -1,0 +1,39 @@
+local blocoModelo = Instance.new("Part")  
+blocoModelo.Size = Vector3.new(2, 2, 2)  
+blocoModelo.Anchored = false
+blocoModelo.CanCollide = true
+
+local imagemID = "rbxassetid://134960603497776"  
+local alturaChuva = 100 
+local intervalo = 0.1  
+local area = 500  
+
+
+local function adicionarImagem(bloco)
+    local faces = {"Front", "Back", "Left", "Right", "Top", "Bottom"}
+    
+    for _, face in pairs(faces) do
+        local decal = Instance.new("Decal")
+        decal.Texture = imagemID
+        decal.Face = Enum.NormalId[face]
+        decal.Parent = bloco
+    end
+end
+
+
+local function gerarBloco()
+    local bloco = blocoModelo:Clone()
+    bloco.Position = Vector3.new(
+        math.random(-area/2, area/2), 
+        alturaChuva, 
+        math.random(-area/2, area/2)
+    )
+    adicionarImagem(bloco)
+    bloco.Parent = workspace
+end
+
+
+while true do
+    gerarBloco()
+    wait(intervalo)
+end
